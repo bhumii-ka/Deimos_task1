@@ -16,9 +16,9 @@ This repository contains all the packages that were used to do task 1 i.e., laun
   ```
   sudo apt-get install ros-noetic-urdf ros-noetic-xacro
   ```
-  Used in mapping the world and visualising it
+  Used in mapping the world, visualising it and saving and launching the map
   ```
-  sudo apt-get install ros-noetic-map-server ros-noetic-gmapping ros-noetic-rviz
+  sudo apt-get install ros-noetic-slam-gmapping ros-noetic-map-server ros-noetic-rviz
   ```
   Used for navigation
   ```
@@ -87,14 +87,14 @@ Make sure the Gazebo is running.
 
 - Initial Position Estimation
   
-  The turtlebot3_navigation.launch file launches amcl file which is an adaptive file that runs multiple scans and estimates the current location of the robot (probable positions are shown as green dots).
-  <br>Click the ```2D Pose Estimate``` in Rviz to roughly provide the position of the robot on the map.<br>
-  We can then run tele-op the turtlebot so that there would more sensor data to get a more probable position of the robot can be determined (see the accumulation of the green dots in one place).
+  - The turtlebot3_navigation.launch file launches amcl file which is an adaptive file that runs multiple scans and estimates the current location of the robot (probable positions are shown as green dots).
+  - Click the ```2D Pose Estimate``` in Rviz to roughly provide the position of the robot on the map.
+  - We can then run tele-op the turtlebot so that there would more sensor data to get a more probable position of the robot can be determined (see the accumulation of the green dots in one place).
 
 - Target Position
   
-  Once you get a good estimation of the initial position you can then `terminate tele-op` command and set a target position for the robot to reach using ```2D Nav Goal``` button in Rviz.
-  <br>The path planning algorithm then makes a path for the robot, to follow, to reach the goal without hitting obstacles, which also gets updated as the robot moves further.<br>
-  Once the robot reaches the target it stops and shows 'Goal Achieved' in the terminal
+  - Once you get a good estimation of the initial position you can then `terminate tele-op` command and set a target position for the robot to reach using ```2D Nav Goal``` button in Rviz.
+  - The path planning algorithm then makes a path for the robot, to follow, to reach the goal without hitting obstacles, which also gets updated as the robot moves further.
+  - Once the robot reaches the target it stops and shows 'Goal Achieved' in the terminal
   
   
