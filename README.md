@@ -71,30 +71,42 @@ The mapping is done using turtlebot3_slam package that allows Simultaneous Local
   rosrun map_server map_saver -f ~/bookstore_map
   ```
   This command will save the map in the home directory
+  > ![main_large](https://github.com/bhumii-ka/Deimos_task1/assets/151030407/b59dd978-a916-472c-b608-9eb73352b7f2)<br>
+  > This is the map of bookstore world available in the repo that is made by SLAM and is used in navigation
+
 > [!Caution]
 > Don't close Gazebo or Rviz without saving Map. Closing Gazebo will terminate roscore.
 
+
 ### Autonomous Navigation
 After saving the map you can terminate turtlebot3_slam and start navigation using that map with the help of the Rviz which allows you to set initial and target positions in terms of x,y and rotation of the robot and autonomously navigate it with the help of path planning algorithms and local and global map
-Make sure the Gazebo is running.
+<br>Make sure Gazebo is running.
 - Run the following command in a new terminal to load your saved map in Rviz
   ```
   $ export TURTLEBOT3_MODEL=waffle_pi
   $ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=<path to .yaml file>/bookstore _map.yaml
   ```
   If you don't specify map_file parameter it will open the default map saved in turtlebot3_navigation/maps directory.
-  > In this repo the default map contains the map of the whole bookstore world
-
+  > In this repo the default map contains the map of the whole bookstore world (shown above)
+  
 - Initial Position Estimation
   
   - The turtlebot3_navigation.launch file launches amcl file which is an adaptive file that runs multiple scans and estimates the current location of the robot (probable positions are shown as green dots).
   - Click the ```2D Pose Estimate``` in Rviz to roughly provide the position of the robot on the map.
   - We can then run tele-op the turtlebot so that there would more sensor data to get a more probable position of the robot can be determined (see the accumulation of the green dots in one place).
+    
+    ![image](https://github.com/bhumii-ka/Deimos_task1/assets/151030407/d141437a-d704-4c6e-a51d-b2a03eb60654) ![image](https://github.com/bhumii-ka/Deimos_task1/assets/151030407/5f23d693-ccb1-4177-bc62-8f5236424aa8)
+
+
+
 
 - Target Position
   
   - Once you get a good estimation of the initial position you can then `terminate tele-op` command and set a target position for the robot to reach using ```2D Nav Goal``` button in Rviz.
   - The path planning algorithm then makes a path for the robot, to follow, to reach the goal without hitting obstacles, which also gets updated as the robot moves further.
-  - Once the robot reaches the target it stops and shows 'Goal Achieved' in the terminal
+    ![image](https://github.com/bhumii-ka/Deimos_task1/assets/151030407/5920dd67-1152-4d67-98f0-03028ec665d3)
+
+  - Once the robot reaches the target it stops and shows 'Goal Achieved' in the terminal.
   
-  
+## Links 
+[Click here](https://youtu.be/bKoAFWC1rpA) to watch the full video of Mapping and Navigation.
