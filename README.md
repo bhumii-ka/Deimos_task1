@@ -92,7 +92,7 @@ Inside the turtlebot3_simulations/turtlebot3_gazebo there are models, .world fil
         ```
       All the contents of the launch file must be enclosed within \<launch> and <\/launch\> tags and file must be saved in ```turtlebot3_simulations/turtlebot3_gazebo/launch``` directory
   - Running the world  <br>
-    You can launch the custom world by the commands given [above](https://github.com/bhumii-ka/Deimos_task1/edit/master/README.md#launching-bookstore-world-in-gazebo)
+    You can launch the custom world by the commands given [above](https://github.com/bhumii-ka/Deimos_task1?tab=readme-ov-file#launching-bookstore-world-in-gazebo)
     
 
 ### Mapping the world
