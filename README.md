@@ -39,7 +39,7 @@ This repository contains all the packages that were used to do task 1 i.e., laun
   ```
   echo "source ~/task1_ws/devel/setup.bash" >> ~/.bashrc
   ```
-### Launching World in Gazebo
+### Launching Bookstore World in Gazebo
 Inside the turtlebot3_simulations/turtlebot3_gazebo there are models, .world file and the .launch file saved of the bookstore world (from [Worlds](https://github.com/mlherd/Dataset-of-Gazebo-Worlds-Models-and-Maps) repo) which are necessary for launching the world in Gazebo. <br>
 
 - Execute the following command and choose a turtlebot model from burger, waffle or waffle_pi to be launched in the world.
@@ -53,6 +53,48 @@ Inside the turtlebot3_simulations/turtlebot3_gazebo there are models, .world fil
   $ export TURTLEBOT3_MODEL=waffle_pi
   $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
   ```
+### Launching any custom world
+  You can launch any custom world in Gazebo by following these steps
+  - Save models and world files<br>
+    Every world is just an arrangement of different models so for launching a custom world copy all the models used and paste in inside `turtlebot3_simulations/turtlebot3_gazebo/models` and paste the world file in `turtlebot3_simulations/turtlebot3_gazebo/worlds` directory and remove or comment the lines in world file that include robot in the world because we will be spawning the bot separately through launch file. For example
+    ```
+    <!-- <include>
+      <pose>-2.3 6.2 0.0 0.0 0.0 -1.72</pose>
+      <uri>model://turtlebot3_waffle_pi</uri>
+    </include> -->
+    ```
+    
+  - Writing a launch file<br>
+    A launch file of a gazebo world should include the following things
+      - Exporting any of the three turtlebots and giving the arguments for its position to be spawned wrt x,y and z axes. The position should be such that the robot doesn't not spawn into an obstacle.
+        ```
+        <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+        <arg name="x_pos" default="-2.3"/>
+        <arg name="y_pos" default="6.2"/>
+        <arg name="z_pos" default="0.0"/>
+        ```
+      - Launching the world file and setting necessary parameters
+        ```
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/<name_of_world>.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+        </include>
+        ```
+        
+      - Calling xarco and urdf files to get the description of the exported robot and spawning it at the position specified earlier
+        ```
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+        ```
+      All the contents of the launch file must be enclosed within \<launch> and <\/launch\> tags and file must be saved in ```turtlebot3_simulations/turtlebot3_gazebo/launch``` directory
+  - Running the world  <br>
+    You can launch the custom world by the commands given [above](https://github.com/bhumii-ka/Deimos_task1/edit/master/README.md#launching-bookstore-world-in-gazebo)
+    
+
 ### Mapping the world
 The mapping is done using turtlebot3_slam package that allows Simultaneous Localisation And Mapping (SLAM) i.e., both estimating the position of the robot and creating the map in the real-time using sensor data
 
